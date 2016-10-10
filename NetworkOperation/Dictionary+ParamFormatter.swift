@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Dictionary where Key: StringLiteralConvertible, Value: AnyObject {
+extension Dictionary where Key: ExpressibleByStringLiteral, Value: AnyObject {
     func urlString(withPath path: String) -> String {
         var finalString = ""
         var i = 0
