@@ -10,6 +10,8 @@
 		3DCEA6F71D80E1E800E9C847 /* NetworkOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DCEA6F61D80E1E800E9C847 /* NetworkOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DCEA6FE1D80E1E800E9C847 /* NetworkOperation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DCEA6F31D80E1E800E9C847 /* NetworkOperation.framework */; };
 		3DCEA7031D80E1E800E9C847 /* NetworkOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEA7021D80E1E800E9C847 /* NetworkOperationTests.swift */; };
+		3DCEA70E1D80E27D00E9C847 /* NetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEA70D1D80E27D00E9C847 /* NetworkOperation.swift */; };
+		3DCEA7101D80E2BF00E9C847 /* Dictionary+ParamFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEA70F1D80E2BF00E9C847 /* Dictionary+ParamFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		3DCEA6FD1D80E1E800E9C847 /* NetworkOperationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkOperationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DCEA7021D80E1E800E9C847 /* NetworkOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperationTests.swift; sourceTree = "<group>"; };
 		3DCEA7041D80E1E800E9C847 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DCEA70D1D80E27D00E9C847 /* NetworkOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperation.swift; sourceTree = "<group>"; };
+		3DCEA70F1D80E2BF00E9C847 /* Dictionary+ParamFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+ParamFormatter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +75,10 @@
 		3DCEA6F51D80E1E800E9C847 /* NetworkOperation */ = {
 			isa = PBXGroup;
 			children = (
+				3DCEA70D1D80E27D00E9C847 /* NetworkOperation.swift */,
 				3DCEA6F61D80E1E800E9C847 /* NetworkOperation.h */,
 				3DCEA6F81D80E1E800E9C847 /* Info.plist */,
+				3DCEA70F1D80E2BF00E9C847 /* Dictionary+ParamFormatter.swift */,
 			);
 			path = NetworkOperation;
 			sourceTree = "<group>";
@@ -194,6 +200,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DCEA7101D80E2BF00E9C847 /* Dictionary+ParamFormatter.swift in Sources */,
+				3DCEA70E1D80E27D00E9C847 /* NetworkOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +318,7 @@
 		3DCEA7081D80E1E800E9C847 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +329,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kirkland.NetworkOperation.NetworkOperation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3DCEA7091D80E1E800E9C847 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
