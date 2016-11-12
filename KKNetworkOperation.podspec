@@ -18,8 +18,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/kylelol/KKNetworkOperation.git", :tag => "1.0" }
 
-  s.source_files  = "Classes", "Classes/**/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
-
+  s.source_files  = "NetworkOperation", "NetworkOperation/**/*.{h,m,swift}"
 
 end
