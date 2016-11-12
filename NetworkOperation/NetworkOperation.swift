@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NetworkOperation: Operation, URLSessionDataDelegate {
+open class NetworkOperation: Operation, URLSessionDataDelegate {
     
     var path: String! {
         return ""
@@ -20,8 +20,8 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
     fileprivate var task: URLSessionDataTask?
     fileprivate let incomingData = NSMutableData()
     
-    convenience init(baseUrl: String) {
-        self.init()
+    public init(baseUrl: String) {
+        super.init()
         self.requestUrl = baseUrl + path
         
         let url = URL(string: self.requestUrl)
@@ -43,45 +43,26 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
         self.task = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil).dataTask(with: request)
     }
     
-    convenience init(baseUrl: String, params: [String: AnyObject]?, httpMethod :String) {
-        self.init(baseUrl: baseUrl)
-        self.params = params
+    convenience public init(baseUrl: String, params: [String: AnyObject]?, httpMethod :String) {
+        self.init(baseUrl: baseUrl, params: params)
         
-        if let p = params {
-            let finalUrlString = p.urlString(withPath: self.requestUrl)
-            let url = URL(string: finalUrlString)
-            self.request = URLRequest(url: url!)
-            self.requestUrl = finalUrlString
-        }
-        
-        //self.request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params!, options: [])
         self.request.httpMethod = httpMethod
         self.task = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil).dataTask(with: request)
     }
     
-    convenience init(baseUrl: String, params: [String: AnyObject]?, httpMethod :String, authToken: String!, client: String!, tokenType: String!, uid: String!) {
-        self.init(baseUrl: baseUrl)
-        self.params = params
-        
-        if let p = params {
-            let finalUrlString = p.urlString(withPath: self.requestUrl)
-            let url = URL(string: finalUrlString)
-            self.request = URLRequest(url: url!)
-            self.requestUrl = finalUrlString
-        }
-        
+    convenience public init(baseUrl: String, params: [String: AnyObject]?, httpMethod :String, authToken: String!, client: String!, tokenType: String!, uid: String!) {
+        self.init(baseUrl: baseUrl, params: params, httpMethod: httpMethod)
+
         self.request.setValue(authToken, forHTTPHeaderField: "access-token")
         self.request.setValue(tokenType, forHTTPHeaderField: "token-type")
         self.request.setValue(client, forHTTPHeaderField: "client")
         self.request.setValue(uid, forHTTPHeaderField: "uid")
         
-        
-        self.request.httpMethod = httpMethod
         self.task = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil).dataTask(with: request)
     }
     
-    convenience init(actualUrl: String, httpMethod: String) {
-        self.init()
+    public init(actualUrl: String, httpMethod: String) {
+        super.init()
         
         self.requestUrl = actualUrl
         
@@ -92,7 +73,7 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
     }
     
     var internalFinished: Bool = false
-    override var isFinished: Bool {
+    override open var isFinished: Bool {
         get {
             return internalFinished
         }
@@ -103,12 +84,12 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
         }
     }
     
-    override func start() {
+    override open func start() {
         task?.resume()
         
     }
     
-    func processData(_ data: Data, forResponse response: URLResponse?) {
+   open func processData(_ data: Data, forResponse response: URLResponse?) {
         
         isFinished = true
     }
@@ -117,18 +98,17 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
         self.task?.resume()
     }
     
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         if isCancelled {
             isFinished = true
             task?.cancel()
             return
         }
         
-        //   print(response)
         completionHandler(.allow)
     }
     
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         if isCancelled {
             isFinished = true
             task?.cancel()
@@ -138,7 +118,7 @@ class NetworkOperation: Operation, URLSessionDataDelegate {
         incomingData.append(data)
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if isCancelled {
             isFinished = true
             self.task?.cancel()
